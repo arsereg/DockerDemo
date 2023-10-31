@@ -1,8 +1,39 @@
 type Query {
-    shows(titleFilter: String): [Show]
+    flavors: [PizzaFlavor]
+    sizes: [PizzaSize]
 }
 
-type Show {
-    title: String
-    releaseYear: Int
+type Mutation {
+    orderPizza(pizzas: [PizzaOrder!]!): Invoice
+}
+
+type Invoice{
+    subTotal: Float
+    total: Float
+    tax: Float
+    pizzas: [PizzaResult]
+}
+
+type PizzaResult{
+    pizzaSize: PizzaSize,
+    pizzaFlavor: PizzaFlavor,
+}
+
+input PizzaOrder{
+    pizzaSize: PizzaSize,
+    pizzaFlavor: PizzaFlavor,
+}
+
+enum PizzaSize {
+    SMALL
+    MEDIUM
+    LARGE
+    EXTRA_LARGE
+}
+
+enum PizzaFlavor {
+    MARGHERITA
+    PEPPERONI
+    FOUR_CHEESE
+    HAWAIIAN
 }
